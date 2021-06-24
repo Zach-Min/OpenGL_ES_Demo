@@ -1,5 +1,4 @@
-package com.example.opengl_es_demo;
-
+package com.example.opengl_es_demo.common;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,8 +6,6 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.opengl.Matrix;
-
-import com.example.opengl_es_demo.common.BaseGLSL;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -18,7 +15,9 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class ImageRenderer extends BaseGLSL implements GLSurfaceView.Renderer {
+import static com.example.opengl_es_demo.common.BaseGLSL.createOpenGLProgram;
+
+public class ImageRenderer implements GLSurfaceView.Renderer {
     //顶点着色器
     private static final String vertexMatrixShaderCode =
             "attribute vec4 vPosition;\n" +
@@ -39,28 +38,6 @@ public class ImageRenderer extends BaseGLSL implements GLSurfaceView.Renderer {
                     "    gl_FragColor=texture2D(vTexture,aCoordinate);\n" +
                     "}";
 
-//    private static final String fragmentShaderCode =
-//                        "precision mediump float;\n" +
-//                        "uniform sampler2D vTexture;\n" +
-//                        "varying vec2 aCoordinate;\n" +
-//                         "void main(){ \n" +
-//                                "vec4 nColor=texture2D(vTexture,aCoordinate);\n"+
-//                                "vec3 vChangeColor = vec3(0.006f,0.004f,0.002f);\n" +
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x-vChangeColor.r,aCoordinate.y-vChangeColor.r));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x-vChangeColor.r,aCoordinate.y+vChangeColor.r));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x+vChangeColor.r,aCoordinate.y-vChangeColor.r));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x+vChangeColor.r,aCoordinate.y+vChangeColor.r));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x-vChangeColor.g,aCoordinate.y-vChangeColor.g));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x-vChangeColor.g,aCoordinate.y+vChangeColor.g));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x+vChangeColor.g,aCoordinate.y-vChangeColor.g));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x+vChangeColor.g,aCoordinate.y+vChangeColor.g));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x-vChangeColor.b,aCoordinate.y-vChangeColor.b));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x-vChangeColor.b,aCoordinate.y+vChangeColor.b));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x+vChangeColor.b,aCoordinate.y-vChangeColor.b));\n"+
-//                                "nColor+=texture2D(vTexture,vec2(aCoordinate.x+vChangeColor.b,aCoordinate.y+vChangeColor.b));\n"+
-//                                "nColor/=13.0;\n"+
-//                                "gl_FragColor=nColor;\n"+
-//                                "}";
 
     //顶点坐标
     private final float[] sPos={
@@ -71,10 +48,10 @@ public class ImageRenderer extends BaseGLSL implements GLSurfaceView.Renderer {
     };
     //纹理坐标
     private final float[] sCoord={
-            0.0f,0.0f,  //左上角 V1
-            0.0f,1.0f,  //左下角 V2
-            1.0f,0.0f,   //右上角 V3
-            1.0f,1.0f  //右下角 V4
+            0.0f,1.0f,  //左上角 V1
+            0.0f,0.0f,  //左下角 V2
+            1.0f,1.0f,   //右上角 V3
+            1.0f,0.0f  //右下角 V4
     };
 
     private Context mContext;
@@ -153,7 +130,7 @@ public class ImageRenderer extends BaseGLSL implements GLSurfaceView.Renderer {
             }
         }
         //设置相机位置
-        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, 7.0f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, 7.0f, 0f, 0f, 0f, 0f, -1.0f, 1.0f);
         //计算变换矩阵
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectMatrix, 0, mViewMatrix, 0);
     }
