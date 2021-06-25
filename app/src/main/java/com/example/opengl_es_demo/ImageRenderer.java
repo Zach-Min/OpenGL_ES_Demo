@@ -1,4 +1,4 @@
-package com.example.opengl_es_demo.common;
+package com.example.opengl_es_demo;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
