@@ -47,5 +47,35 @@ public class Opengles extends AppCompatActivity {
                 setContentView(new ImageGLSurfaceView(mContext, 2));
             }
         });
+
+        Button show_triangle_color = findViewById(R.id.triangle_color);
+        show_triangle_color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Opengles.this,"Triangle with color",Toast.LENGTH_SHORT).show();
+                mContext = getApplicationContext();
+                setContentView(new ImageGLSurfaceView(mContext, 3));
+            }
+        });
+
+        Button show_cube = findViewById(R.id.cube);
+        show_cube.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Opengles.this,"show cube",Toast.LENGTH_SHORT).show();
+                mContext = getApplicationContext();
+                setContentView(new ImageGLSurfaceView(mContext, 4));
+            }
+        });
+
+        Button show_oval = findViewById(R.id.oval);
+        show_oval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Opengles.this,"show oval",Toast.LENGTH_SHORT).show();
+                mContext = getApplicationContext();
+                setContentView(new ImageGLSurfaceView(mContext, 5));
+            }
+        });
     }
 }
